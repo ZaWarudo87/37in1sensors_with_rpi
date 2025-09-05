@@ -10,6 +10,7 @@ now_btn = False
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BTN_PIN, GPIO.IN)
 GPIO.setup(BUZZER_PIN, GPIO.OUT)
+GPIO.output(BUZZER_PIN, False)
 
 try:
     while True:
