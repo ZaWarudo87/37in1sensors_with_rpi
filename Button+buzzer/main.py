@@ -14,9 +14,10 @@ GPIO.setup(BUZZER_PIN, GPIO.OUT)
 try:
     while True:
         now_btn = GPIO.input(BTN_PIN)
-        if now_btn != bef_btn:
+        if now_btn != bef_btn and not now_btn:
             beep = not beep
             GPIO.output(BUZZER_PIN, beep)
+            print("beeping" if beep else "stopped")
         bef_btn = now_btn
         time.sleep(0.1)
 except KeyboardInterrupt:
