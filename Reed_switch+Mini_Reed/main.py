@@ -1,16 +1,21 @@
-import RPi.GPIO as GPIO 
+import RPi.GPIO as GPIO
+import serial
 import time
 
-AO_PIN = 2
-DO_PIN = 3
+D0_PIN = 2
+ser = serial.Serial("/dev/serial0", 115200, timeout=1)
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(AO_PIN, GPIO.IN)
-GPIO.setup(DO_PIN, GPIO.IN)
+GPIO.setup(D0_PIN, GPIO.IN)
 
 try:
     while True:
-        print(f"AO: {GPIO.input(AO_PIN)}, DO: {GPIO.input(DO_PIN)}")
+        line = ser.readline().decode("utf-8").strip()
+        if line:
+            A0 = int(line)
+        else:
+            A0 = 0
+        print(f"A0: {A0}, D0: {GPIO.input(D0_PIN)}")
         time.sleep(0.5)
 except KeyboardInterrupt:
     pass
